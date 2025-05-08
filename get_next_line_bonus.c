@@ -1,16 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mda-enca <mda-enca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 13:29:18 by mda-enca          #+#    #+#             */
-/*   Updated: 2025/05/06 13:29:43 by mda-enca         ###   ########.fr       */
+/*   Created: 2025/05/08 16:25:18 by mda-enca          #+#    #+#             */
+/*   Updated: 2025/05/08 16:25:21 by mda-enca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
+
+void	ft_remaining(char *vault);
+char	*ft_read_and_store(int fd, char *line, char *vault);
+char	*ft_extract_line(char *vault, char *line);
+
+char	*get_next_line(int fd)
+{
+	static char	vault[MAX_FD_SIZE][BUFFER_SIZE + 1];
+	char		*line;
+
+	line = NULL;
+	if (fd < 0)
+		return (NULL);
+	if (vault[fd][0] && ft_strchr_gnl(vault[fd], '\n'))
+		return (ft_extract_line(vault[fd], line));
+	if (vault[fd][0])
+	{
+		line = ft_strjoin_gnl(line, vault[fd]);
+		if (!line)
+			return (NULL);
+	}
+	line = ft_read_and_store(fd, line, vault[fd]);
+	if (!line)
+		return (NULL);
+	line = ft_extract_line(vault[fd], line);
+	if (!line)
+		return (NULL);
+	return (line);
+}
 
 void	ft_remaining(char *vault)
 {
@@ -83,30 +112,5 @@ char	*ft_extract_line(char *vault, char *line)
 	if (line[i] != '\0')
 		line[i + 1] = '\0';
 	ft_remaining(vault);
-	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	vault[BUFFER_SIZE + 1];
-	char		*line;
-
-	line = NULL;
-	if (fd < 0)
-		return (NULL);
-	if (vault[0] && ft_strchr_gnl(vault, '\n'))
-		return (ft_extract_line(vault, line));
-	if (vault[0])
-	{
-		line = ft_strjoin_gnl(line, vault);
-		if (!line)
-			return (NULL);
-	}
-	line = ft_read_and_store(fd, line, vault);
-	if (!line)
-		return (NULL);
-	line = ft_extract_line(vault, line);
-	if (!line)
-		return (NULL);
 	return (line);
 }

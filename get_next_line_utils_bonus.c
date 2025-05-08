@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mda-enca <mda-enca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 13:28:19 by mda-enca          #+#    #+#             */
-/*   Updated: 2025/05/06 13:28:22 by mda-enca         ###   ########.fr       */
+/*   Created: 2025/05/08 16:25:33 by mda-enca          #+#    #+#             */
+/*   Updated: 2025/05/08 16:25:36 by mda-enca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen_gnl(char *str)
 {

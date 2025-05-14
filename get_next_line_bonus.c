@@ -22,7 +22,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	line = NULL;
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (vault[fd][0] && ft_strchr_gnl(vault[fd], '\n'))
 		return (ft_extract_line(vault[fd], line));
@@ -39,30 +39,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	return (line);
-}
-
-void	ft_remaining(char *vault)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while (vault[i] != '\n' && vault[i])
-		i++;
-	if (vault[i] == '\n')
-		i++;
-	while (vault[i] != '\0')
-	{
-		vault[j] = vault[i];
-		j++;
-		i++;
-	}
-	while (j < BUFFER_SIZE)
-	{
-		vault[j] = '\0';
-		j++;
-	}
 }
 
 char	*ft_read_and_store(int fd, char *line, char *vault)
@@ -113,4 +89,28 @@ char	*ft_extract_line(char *vault, char *line)
 		line[i + 1] = '\0';
 	ft_remaining(vault);
 	return (line);
+}
+
+void	ft_remaining(char *vault)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (vault[i] != '\n' && vault[i])
+		i++;
+	if (vault[i] == '\n')
+		i++;
+	while (vault[i] != '\0')
+	{
+		vault[j] = vault[i];
+		j++;
+		i++;
+	}
+	while (j < BUFFER_SIZE)
+	{
+		vault[j] = '\0';
+		j++;
+	}
 }
